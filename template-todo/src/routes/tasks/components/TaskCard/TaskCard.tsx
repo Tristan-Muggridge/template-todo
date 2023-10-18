@@ -1,4 +1,4 @@
-import Task from "../../models/Task";
+import Task from "../../../../models/Task";
 import { BsCalendar } from 'react-icons/bs';
 import { DateDisplay } from "./DateDisplay";
 import { TaskCardCheckbox } from "./TaskCardCheckbox";

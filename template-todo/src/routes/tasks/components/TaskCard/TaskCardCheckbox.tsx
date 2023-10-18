@@ -1,4 +1,4 @@
-import Task from "../../models/Task";
+import Task from "../../../../models/Task";
 import React, { useState } from 'react';
 
 export const TaskCardCheckbox = ({ task, onComplete }: { task: Task; onComplete(completed: boolean): void; }) => {
