@@ -1,19 +1,14 @@
 import { UserTaskList } from '../../models/TaskList';
-import Task, { UserTask } from '../../models/Task';
+import { UserTask } from '../../models/Task';
 import { TaskCard } from './components/TaskCard';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 
 export default () => {
     
-    const [tasks, setTasks] = useState<Array<Task>>([
-        new UserTask("Today's Task", "This task is due today", new Date()),
-        new UserTask("Tomorrow's Task", "This task is due tomorrow", new Date(new Date().setDate(new Date().getDate() + 1))),
-        new UserTask("Yesterday's Task", "This task was due yesterday", new Date(new Date().setDate(new Date().getDate() - 1))),
-        new UserTask("Next Week's Task", "This task is due next week", new Date(new Date().setDate(new Date().getDate() + 7))),
-    ]);
+    const taskList = new UserTaskList();
 
-    const taskList = new UserTaskList(setTasks);
+    const tasks = taskList.tasks;
 
     const [showError, setShowError] = useState(false);
     const [formState, setFormState] = useState({
@@ -24,8 +19,6 @@ export default () => {
             ]
         }
     })
-
-    const formRef = useRef<HTMLFormElement>(null);
 
     const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
@@ -45,7 +38,7 @@ export default () => {
         <div className='flex flex-col w-full p-4 gap-4'>
             
             {/* New Task Form */}
-            <form onSubmit={onSubmit} className='flex flex-col' ref={formRef}>
+            <form onSubmit={onSubmit} className='flex flex-col'>
                 <div className='overflow-hidden rounded-md w-full flex '>
                     <input type="text" className="grow h-full p-2 text-neutral-800 outline-transparent" placeholder="New Task" value={formState.title.value} 
                         onChange={

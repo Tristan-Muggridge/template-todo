@@ -9,7 +9,8 @@ abstract class Task extends Record {
         public status: string,
         public priority: string,
         public subTasks: Task[],
-    ) { super(); }
+        id?: string
+    ) { super(id); }
 
     public markComplete = () => {
         this.completed = true;
@@ -38,9 +39,15 @@ export class UserTask extends Task {
         status: string = 'upcoming',
         priority: string = 'low',
         subTasks: Task[] = [],
+        id?: string
     ) {
         if (!dueDate) dueDate = defaultDate();
-        super(title, description, dueDate, completed, status, priority, subTasks);
+        super(title, description, dueDate, completed, status, priority, subTasks, id);
+    }
+
+    static fromJSON = (json: any) => {
+        const { title, description, dueDate, completed, status, priority, subTasks } = json;
+        return new UserTask(title, description, new Date(dueDate), completed, status, priority, subTasks);
     }
 }
 

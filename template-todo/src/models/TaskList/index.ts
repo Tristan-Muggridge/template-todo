@@ -1,13 +1,31 @@
-import Task from "../Task";
+import React, { useEffect } from "react";
+import Task, { UserTask } from "../Task";
 
 abstract class TaskList {
     private _tasks: Task[] = [];
     private _setTaskState: React.Dispatch<React.SetStateAction<Task[]>>;
 
     constructor(
-        setTaskState: React.Dispatch<React.SetStateAction<Task[]>>,
-        tasks: Task[] = [],
-    ) { this._tasks = tasks; this._setTaskState = setTaskState; }
+        defaultTasks: Task[] = [],
+    ) { 
+        const [tasks, setTasks] = React.useState<Task[]>(defaultTasks);
+        this._tasks = tasks;
+        this._setTaskState = setTasks;
+
+        useEffect(() => {
+            const storedTasks = localStorage.getItem('tasks');
+            if (storedTasks) {
+                this.addTasks(JSON.parse(storedTasks).map((task:any) => {
+                    return UserTask.fromJSON(task);
+                }));
+                console.log(storedTasks)
+            }
+        }, [])
+
+        useEffect(() => {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }, [tasks])
+     }
     
     // getter
     public get tasks() { return this._tasks;}
@@ -21,10 +39,14 @@ abstract class TaskList {
 
 export class UserTaskList extends TaskList {
     constructor(
-        taskState: React.Dispatch<React.SetStateAction<Task[]>>,
         tasks: Task[] = [],
     ) {
-        super(taskState, tasks);
+        super(tasks);
+    }
+
+    static fromJSON = (json: any) => {
+        const tasks = json.tasks.map((task: any) => UserTask.fromJSON(task));
+        return new UserTaskList(tasks);
     }
 }
 
