@@ -1,6 +1,6 @@
 import { UserTaskList } from '../../models/TaskList';
 import Task, { UserTask } from '../../models/Task';
-import { TaskCard } from './components/TaskCard/TaskCard';
+import { TaskCard } from './components/TaskCard';
 import { useRef, useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 

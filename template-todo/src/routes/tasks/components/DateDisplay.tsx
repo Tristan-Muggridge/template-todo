@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const DateDisplay = ({ date }: { date: Date; }) => {
 
     const labels = {
@@ -41,17 +39,9 @@ export const DateDisplay = ({ date }: { date: Date; }) => {
         dateString = "Tomorrow";
     }
 
-    if (dateString in labels) {
-        return (
-            <span className={`text-xs ${labels[dateString].colour}`}>
-                {labels[dateString].label}
-            </span>
-        );
-    }
-
     return (
-        <span className="text-xs text-neutral-400">
-            {dateString}
+        <span className={`text-xs ${labels[dateString as keyof typeof labels]?.colour || 'text-neutral-400'}`}>
+            {labels[dateString as keyof typeof labels]?.label || dateString}
         </span>
     );
 };
