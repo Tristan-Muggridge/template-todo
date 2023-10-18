@@ -13,27 +13,26 @@ import Tasks from './routes/tasks';
 import Templates from './routes/templates';
 import Configuration from './routes/configuration';
 
-
 const router = createBrowserRouter([
-        {
-            path: "/",
-            element: <Root />,
-            errorElement: <div>Not Found</div>,
-            children: [
-                {
-                    path: "/tasks",
-                    element: <Tasks />
-                },
-                {
-                    path: "/templates",
-                    element: <Templates />
-                },
-                {
-                    path: "/configuration",
-                    element: <Configuration />
-                }
-            ]
-        },
+    {
+        path: "/",
+        element: <Root />,
+        errorElement: <div>Not Found</div>,
+        children: [
+            {
+                path: "/tasks",
+                element: <Tasks />
+            },
+            {
+                path: "/templates",
+                element: <Templates />
+            },
+            {
+                path: "/configuration",
+                element: <Configuration />
+            }
+        ]
+    },
 ]);
 
 const rootElement = document.getElementById("root");
