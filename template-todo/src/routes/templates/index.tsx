@@ -1,17 +1,21 @@
-import { useState } from "react";
-import { TaskTemplate } from "../../models/Template"
+import { UserTemplate } from "../../models/Template"
+import { UserTemplateList } from "../../models/TemplateList";
 import Card from "../components/Card";
 import { FiEdit, FiTrash } from "react-icons/fi";
 
-const TemplateCard = ({template}:{template: TaskTemplate}) => (
+const TemplateCard = ({template, toggleEnabled}:{template: UserTemplate, toggleEnabled():void}) => (    
     <Card className={`${template.enabled ? '' : 'opacity-50'} flex flex-col gap-4`}>
         <div>
             <div className="flex justify-between">
                 <h2 className="text-2xl text-neutral-50 font-bold">{template?.title}</h2>
                 {/* enabled indicator */}
-                <div className={`px-2 py-1 rounded-md text-sm font-bold ${template?.enabled ? 'bg-neutral-700 text-emerald-500' : 'bg-neutral-700 text-rose-500'}`}>
+                
+                <button
+                    onClick={toggleEnabled} 
+                    className={`px-2 py-1 rounded-md text-sm font-bold ${template?.enabled ? 'bg-neutral-700 text-emerald-500' : 'bg-neutral-700 text-rose-500'}`}>
                     {template?.enabled ? 'Enabled' : 'Disabled'}
-                </div>
+                </button>
+            
             </div>
             <p>{template?.description}</p>
         </div>
@@ -31,50 +35,51 @@ const TemplateCard = ({template}:{template: TaskTemplate}) => (
                 }
             </ul>
         </div>
-
     </Card>
 )
 
 export default () => {
 
-    const templates = [
-        new TaskTemplate(
-            'Japanese Study', 
-            'daily Japanese study template', 
-            [
-                'Vocabulary',
-                'Grammar',
-                'Reading',
-                'Listening',
-                'Kanji'
-            ]
-        ),
-        new TaskTemplate(
-            'Composition',
-            'Daily piano practice for album',
-            [
-                'Scales',
-                'Arpeggios',
-                'Fool',
-                'Emperor'
-            ]
-        ),
-        new TaskTemplate(
-            'Software Engineering',
-            'Daily software engineering practice / project work',
-            [
-                'Project',
-                'Algorithms',
-                'Data Structures',
-                'Design Patterns',
-                'Testing',
-                'Debugging'
-            ]
-        )
+    const templateManager = new UserTemplateList(
+        [
+            new UserTemplate(
+                'Japanese Study', 
+                'daily Japanese study template', 
+                [
+                    'Vocabulary',
+                    'Grammar',
+                    'Reading',
+                    'Listening',
+                    'Kanji'
+                ]
+            ),
+            new UserTemplate(
+                'Composition',
+                'Daily piano practice for album',
+                [
+                    'Scales',
+                    'Arpeggios',
+                    'Fool',
+                    'Emperor'
+                ]
+            ),
+            new UserTemplate(
+                'Software Engineering',
+                'Daily software engineering practice / project work',
+                [
+                    'Project',
+                    'Algorithms',
+                    'Data Structures',
+                    'Design Patterns',
+                    'Testing',
+                    'Debugging'
+                ]
+            )
+    
+        ]
+    );
 
-    ]
-
-    templates[1].enabled = false;
+        const templates = templateManager.templates;
 
     return (
         <div className='flex flex-col w-full p-4 gap-4'>
@@ -83,7 +88,10 @@ export default () => {
             <div className="flex flex-col gap-4">
                 {
                     templates.map( template => (
-                        <TemplateCard key={template.id} template={template}/>
+                        <TemplateCard key={template.id} template={template}
+
+                            toggleEnabled={() => templateManager.updateTemplate(template.toggleEnabled())}
+                        />
                     ))
                 }
             </div>

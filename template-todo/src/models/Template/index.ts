@@ -23,15 +23,29 @@ export abstract class Template extends Record {
     public set tasks(tasks: string[]) {
         this._setTasks(tasks);
     }
+
+    public static fromJSON = (json: any): Template => {
+       throw new Error("Not implemented");
+    }
+
+    public toggleEnabled = () => {
+        this.enabled = !this.enabled;
+        return this;
+    }
 } 
 
-export class TaskTemplate extends Template {
+export class UserTemplate extends Template {
     constructor(
         title: string,
         description: string = "",
         tasks: string[] = [],
     ) {
         super(title, description, tasks);
+    }
+
+    public static fromJSON = (json: any) => {
+        const { title, description, tasks } = json;
+        return new UserTemplate(title, description, tasks);
     }
 }
 
