@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLanguage } from "../../context/LanguageContext";
 
 export interface FormTemplate {
     [key: string]: {
@@ -49,7 +50,7 @@ interface TemplateFormProps <T>{
 
 const TemplateForm = <T extends FormTemplate>({onSubmit, formTemplate}: TemplateFormProps<T>) => {
     const [form, setForm] = useState(formTemplate);
-
+    const {language} = useLanguage();
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setForm({
@@ -115,7 +116,7 @@ const TemplateForm = <T extends FormTemplate>({onSubmit, formTemplate}: Template
                     transition-all duration-200
                     disabled:bg-neutral-700 disabled:cursor-not-allowed
                 `}>
-                    Submit
+                    {language.submit}
                 </button>
         </form>
     )

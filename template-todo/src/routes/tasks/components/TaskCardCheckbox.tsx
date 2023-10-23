@@ -1,14 +1,23 @@
 import Task from "../../../models/Task";
 import React, { useState } from 'react';
 
-export const TaskCardCheckbox = ({ task, onComplete }: { task: Task; onComplete(completed: boolean): void; }) => {
+interface TaskCardProps {
+    task: Task;
+    onComplete: () => void;
+    onIncomplete: () => void;
+}
+export const TaskCardCheckbox = ({ task, onComplete, onIncomplete }: TaskCardProps) => {
 
     const [checked, setChecked] = useState(task.completed);
 
     const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        setChecked(!checked);
-        onComplete(!checked);
+        
+        // perform synchronous state change
+        setChecked( checked => !checked);
+        
+        // perform asynchronous side effect
+        checked ? onIncomplete() : onComplete();
     };
 
     return (

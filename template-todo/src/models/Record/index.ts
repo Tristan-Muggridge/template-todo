@@ -8,7 +8,5 @@ export default class {
         this._id = id || generateId();
     }
     
-    public get id() {
-        return this._id;
-    }
+    public get id() { return this._id; }
 }

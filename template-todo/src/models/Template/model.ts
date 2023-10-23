@@ -1,4 +1,6 @@
+
 import Record from '../Record';
+
 export interface ITemplate {
 	name: string;
 	description: string;

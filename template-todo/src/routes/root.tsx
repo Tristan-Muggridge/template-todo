@@ -1,13 +1,20 @@
 import { BsListCheck, BsGearFill, BsClipboardFill, BsLayoutSidebar } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Outlet, Link } from "react-router-dom";
 import { IoLanguageSharp } from "react-icons/io5";
+import { useLanguage } from '../context/LanguageContext';
+import { SupportedLanguages } from "../UILanguages";
 
 const SideNav = () => {
     
     const [expanded, setExpanded] = useState(true);
     const [page, setPage] = useState(window.location.href.split('/').pop());
+    const { language, setLanguage } = useLanguage();
+
+    useEffect(() => {
+        document.title = language._id === SupportedLanguages.English ? 'Template Todo' : 'マイ・タスク';
+    }, [language])
 
     return (
         <nav className="w-28">
@@ -15,26 +22,26 @@ const SideNav = () => {
                 h-full flex flex-col justify-between items-center w-24 transition-all duration-200 relative
             `}>
                 
-                <button className="bg-neutral-900 p-4 flex justify-center items-center shadow-lg shadow-black transition-all duration-200 w-full absolute top-0 left-0" onClick={() => setExpanded(!expanded)}> <BsLayoutSidebar /> </button>
+                <span className="bg-neutral-900 p-4 flex justify-center items-center shadow-lg shadow-black transition-all duration-200 w-full absolute top-0 left-0" onClick={() => setExpanded(!expanded)}> <BsLayoutSidebar /> </span>
 
                 <div className={`
                     bg-neutral-900 p-4 shadow-lg shadow-black transition-all duration-200 grow justify-between flex flex-col w-full absolute top-10 bottom-0
-                    ${expanded ? "left-0" : "-left-[100%]"}
+                    
                 `}>
                     <div/>
                     <div className="flex flex-col text-2xl items-center gap-24 w-full">
                         {
                             [
                                 {
-                                    to: 'tasks',
+                                    to: language._id === SupportedLanguages.English ? 'tasks' : 'タスク',
                                     icon: <BsListCheck />
                                 },
                                 {
-                                    to: 'templates',
+                                    to: language._id === SupportedLanguages.English ? 'templates' : 'テンプレート',
                                     icon: <BsClipboardFill />
                                 },
                                 {
-                                    to: 'configuration',
+                                    to: language._id === SupportedLanguages.English ? 'configuration' : '設定',
                                     icon: <BsGearFill />
                                 }
                             ].map( ({to, icon}) => (
@@ -53,7 +60,10 @@ const SideNav = () => {
                         }
                     </div>
 
-                    <button className="text-2xl flex justify-center"> <IoLanguageSharp /> </button>
+                    <button className="text-2xl flex justify-center" onClick={() => {
+                        // This is actually awful, TODO: Fix this
+                        language._id === SupportedLanguages.English ? setLanguage(SupportedLanguages.Japanese) : setLanguage(SupportedLanguages.English);
+                    }}> <IoLanguageSharp /> </button>
                 </div>
             </div>
         </nav>
@@ -62,7 +72,7 @@ const SideNav = () => {
 
 export default function Root() {  
     return (
-        <main className="bg-neutral-800 h-[100vh] text-neutral-100 flex">
+        <main className="bg-neutral-800 min-h-[100vh] text-neutral-100 flex">
             <SideNav />
             <div className="flex justify-center w-full">
                 <Outlet />

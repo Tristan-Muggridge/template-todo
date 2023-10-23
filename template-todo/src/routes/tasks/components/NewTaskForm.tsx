@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { UserTask } from "../../../models/Task";
-import TaskList from "../../../models/TaskList";
+import Task from "../../../models/Task";
+import { TaskList } from "../../../models/TaskList";
+import { useLanguage } from "../../../context/LanguageContext";
 
 export default ({taskList}:{taskList: TaskList}) => {
-
+    const {language} = useLanguage();
     const [showError, setShowError] = useState(false);
     const [formState, setFormState] = useState({
         title: {
@@ -17,7 +18,7 @@ export default ({taskList}:{taskList: TaskList}) => {
 
     const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-        taskList.addTask(new UserTask(formState.title.value));
+        taskList.addTask(new Task(formState.title.value));
         setFormState( form => {
             return {
                 ...form,
@@ -33,7 +34,7 @@ export default ({taskList}:{taskList: TaskList}) => {
     return (
         <form onSubmit={onSubmit} className='flex flex-col'>
             <div className='overflow-hidden rounded-md w-full flex '>
-                <input type="text" className="grow h-full p-2 text-neutral-800 outline-transparent" placeholder="New Task" value={formState.title.value} 
+                <input type="text" className="grow h-full p-2 text-neutral-800 outline-transparent" placeholder={language.createANewTask} value={formState.title.value} 
                     onChange={
                         e => setFormState( form => {
                             return {

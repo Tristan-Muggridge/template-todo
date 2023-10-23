@@ -1,53 +1,66 @@
 import Record from "../Record";
 
-abstract class Task extends Record {    
-    constructor(
-        public title: string,
-        public description: string,
-        public dueDate: Date,
-        public completed: boolean,
-        public status: string,
-        public priority: string,
-        public subTasks: Task[],
-        id?: string
+export interface ITask {
+    title: string;
+    description: string;
+    dueDate: Date;
+    completed: boolean;
+    status: string;
+    priority: string;
+    subTasks: Task[];
+    id: string;
+}
+
+class Task extends Record implements ITask {
+    constructor (
+        private _title: string,
+        private _description: string = '',
+        private _dueDate: Date = new Date(),
+        private _completed: boolean = false,
+        private _status: string = '',
+        private _priority: string = '',
+        private _subTasks: Task[] = [],
+        id?: string,
     ) { super(id); }
 
-    public markComplete = () => {
-        this.completed = true;
+    // getters
+    get title () { return this._title; }
+    get description () { return this._description; }
+    get dueDate () { return this._dueDate; }
+    get completed () { return this._completed; }
+    get status () { return this._status; }
+    get priority () { return this._priority; }
+    get subTasks () { return this._subTasks; }
+
+    static fromJSON(json: Task) {
+        return new Task(json.title, json.description, new Date(json.dueDate), json.completed, json.status, json.priority, json.subTasks, json.id);
+    }
+
+    toJSON() {
+        return {
+            title: this.title,
+            description: this.description,
+            dueDate: this.dueDate,
+            completed: this.completed,
+            status: this.status,
+            priority: this.priority,
+            subTasks: this.subTasks,
+            id: this.id,
+        }
+    }
+
+    // Used in state updates, so need to return a new object of self.
+    markComplete() {
+        this._completed = true;
+        console.log('Task marked complete',
+        this);
+        console.log();
         return this;
     }
 
-    public markIncomplete = () => {
-        this.completed = false;
+    markIncomplete() {
+        this._completed = false;
         return this;
-    }
-}
-
-const defaultDate = () => {
-    const now = new Date();
-    const twelveHoursFromNow = new Date(now.getTime() + 12 * 60 * 60 * 1000);
-    return twelveHoursFromNow;
-}
-
-export class UserTask extends Task {    
-    
-    constructor(
-        title: string,
-        description: string = "",
-        dueDate: Date|null = null,
-        completed: boolean = false,
-        status: string = 'upcoming',
-        priority: string = 'low',
-        subTasks: Task[] = [],
-        id?: string
-    ) {
-        if (!dueDate) dueDate = defaultDate();
-        super(title, description, dueDate, completed, status, priority, subTasks, id);
-    }
-
-    static fromJSON = (json: any) => {
-        const { title, description, dueDate, completed, status, priority, subTasks } = json;
-        return new UserTask(title, description, new Date(dueDate), completed, status, priority, subTasks);
     }
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import TemplateModel from './model';
 import Card from '../../routes/components/Card';
 import { FiEdit, FiPlus, FiTrash } from 'react-icons/fi';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface TemplateProps {
 	onToggleEnabled: () => void;
@@ -20,6 +21,7 @@ const TemplateView: React.FC<TemplateProps> = ({
 }) => {
 
 	const [newTaskInput, setNewTaskInput] = React.useState('');
+	const {language} = useLanguage();
 
 	return (	
 		<Card className={`${template.isEnabled ? '' : 'opacity-50'} flex flex-col gap-4`}>
@@ -32,7 +34,7 @@ const TemplateView: React.FC<TemplateProps> = ({
 						<button 
 							onClick={() => onToggleEnabled()}
 							className={`px-2 py-1 rounded-md text-sm font-bold ${template?.isEnabled ? 'bg-neutral-700 text-emerald-500' : 'bg-neutral-700 text-rose-500'}`}>
-							{template?.isEnabled ? 'Enabled' : 'Disabled'}
+							{template?.isEnabled ? language.enabled : language.disabled}
 						</button>
 						<button onClick={() => onDeleteTemplate()} className="text-neutral-500 hover:text-rose-500"> <FiTrash /> </button>
 					</div>				
@@ -42,7 +44,7 @@ const TemplateView: React.FC<TemplateProps> = ({
 	
 			{/* Template Task List */}
 			<div>
-				<h3 className="text-lg">Template Tasks ({template.tasks.length})</h3>
+				<h3 className="text-lg">{language.templateTasks} ({template.tasks.length})</h3>
 				<form onSubmit={e => {
 					e.preventDefault();
 					const trimmedInput = newTaskInput.trim();
@@ -60,7 +62,7 @@ const TemplateView: React.FC<TemplateProps> = ({
 							hover:bg-neutral-100 transition-all duration-200 focus:bg-neutral-100
 							flex-grow
 						`}
-						placeholder='Create a new task' 
+						placeholder={language.createANewTask} 
 						value={newTaskInput} 
 						onChange={e => setNewTaskInput(e.target.value)} />
 					<button type="submit"><FiPlus /></button>
