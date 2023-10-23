@@ -21,6 +21,8 @@ export interface UILanguage {
     createANewTask: string;
 
     nameIsRequired: string;
+
+    clearAll: string;
 }
 
 const UILanguages: {[key in SupportedLanguages]: UILanguage} = {
@@ -42,6 +44,8 @@ const UILanguages: {[key in SupportedLanguages]: UILanguage} = {
         createANewTask: 'Create a New Task',
 
         nameIsRequired: 'Name is required',
+
+        clearAll: 'Clear All',
     },
 
     Japanese: {
@@ -62,6 +66,8 @@ const UILanguages: {[key in SupportedLanguages]: UILanguage} = {
         createANewTask: '新しいタスクを作成',
 
         nameIsRequired: '名前は必須です',
+
+        clearAll: '削除する',
     }
 }
 

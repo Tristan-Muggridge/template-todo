@@ -38,6 +38,7 @@ export default () => {
                 label={language.completed}
                 tasks={taskList.tasks.filter(task => task.completed)} 
                 taskList={taskList}
+                showClearAll
             />
         </div>
     )
