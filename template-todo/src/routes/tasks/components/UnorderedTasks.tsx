@@ -10,17 +10,17 @@ interface UnorderedTasksProps {
     showClearAll?: boolean;
 }
 
-export default ({tasks, taskList, label, showClearAll}:UnorderedTasksProps) => {
+export default ({tasks, taskList, label, showClearAll }:UnorderedTasksProps) => {
     
     const {language} = useLanguage();
 
     return (
         <div>
-            <div className="flex gap-2 w-full">
+            <div className="flex gap-2 w-full items-center justify-center">
                 <h2 className="text-2xl grow">{label} ({tasks.length})</h2>
                 <button 
                     className={`
-                        self-end text-xs justify-self-end hover:text-rose-500 transition-all duration-200
+                        text-xs hover:text-rose-500 transition-all duration-200
                         ${showClearAll && tasks.length > 0 ? 'opacity-1000' : 'opacity-0'}
                     `}
                     onClick={() => taskList.clearCompleted()}
@@ -30,6 +30,7 @@ export default ({tasks, taskList, label, showClearAll}:UnorderedTasksProps) => {
             
                 </button>                
             </div>
+
             <ul className={`p-4 gap-3 flex flex-col transition-all duration-200`}>
                 {
                     tasks.map( task => (

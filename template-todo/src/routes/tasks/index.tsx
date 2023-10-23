@@ -22,6 +22,9 @@ export default () => {
         taskList.addTasks(tasksToAdd);
     }
 
+    const completeTasks = taskList.tasks.filter(task => task.completed);
+
+
     return (
         <div className='flex flex-col w-full p-4 gap-4'>
             <NewTaskForm {...{taskList}}/>
@@ -29,11 +32,22 @@ export default () => {
                 <span>{language.loadFromTemplates}</span>
                 <span className='text-sm text-neutral-500'> ({templateList.templates.filter(template => template.isEnabled).length}) </span>
             </button>
+
+            {/* Progress Bar */}
+            <div className="flex w-full flex-col gap-0.5">
+                <span className="self-end text-xs text-neutral-400"> {completeTasks.length} / {taskList.tasks.length} </span>
+                <div className="flex-grow h-2 bg-neutral-200 rounded-lg overflow-hidden">
+                    <div className={`h-full bg-emerald-500 transition-colors duration-200 delay-200`} style={{width: `${completeTasks.length/taskList.tasks.length*100}%`}}></div>
+                </div>
+            </div>
+
             <UnorderedTasks 
                 label={language.toDo}
                 tasks={taskList.tasks.filter(task => !task.completed)} 
                 taskList={taskList}
+                showClearAll
             />
+            
             <UnorderedTasks 
                 label={language.completed}
                 tasks={taskList.tasks.filter(task => task.completed)} 
