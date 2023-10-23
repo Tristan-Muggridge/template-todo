@@ -18,18 +18,17 @@ export default ({tasks, taskList, label, showClearAll}:UnorderedTasksProps) => {
         <div>
             <div className="flex gap-2 w-full">
                 <h2 className="text-2xl grow">{label} ({tasks.length})</h2>
-                {
-                    showClearAll && (
-                        <button 
-                            className="self-end text-xs justify-self-end hover:text-rose-500 transition-all duration-200"
-                            onClick={() => taskList.clearCompleted()}
-                        >
-                    
-                        ({language.clearAll})
-                    
-                        </button>
-                    )
-                }
+                <button 
+                    className={`
+                        self-end text-xs justify-self-end hover:text-rose-500 transition-all duration-200
+                        ${showClearAll && tasks.length > 0 ? 'opacity-1000' : 'opacity-0'}
+                    `}
+                    onClick={() => taskList.clearCompleted()}
+                >
+            
+                ({language.clearAll})
+            
+                </button>                
             </div>
             <ul className={`p-4 gap-3 flex flex-col transition-all duration-200`}>
                 {
