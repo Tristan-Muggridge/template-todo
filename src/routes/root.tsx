@@ -1,4 +1,4 @@
-import { BsListCheck, BsGearFill, BsClipboardFill, BsLayoutSidebar } from "react-icons/bs";
+import { BsListCheck, BsClipboardFill, BsLayoutSidebar } from "react-icons/bs";
 import { useEffect, useState } from "react";
 
 import { Outlet, Link } from "react-router-dom";
