@@ -26,7 +26,7 @@ const LanguageToggle = () => {
 const SideNav = () => {
     
     const [expanded, setExpanded] = useState(false);
-    const [page, setPage] = useState(window.location.href.split('/').pop());
+    // const [page, setPage] = useState(window.location.href.split('/').pop());
 
     // const onNavClick = () => {
     //     setExpanded(!expanded);
@@ -69,7 +69,6 @@ const SideNav = () => {
                                     to={to} 
                                     className={`
                                         flex w-full items-center justify-center grow hover:text-neutral-700 transition-all duration-200
-                                        ${page === to ? 'text-neutral-700' : ''}
                                     `}
                                 > 
                                     {icon} 
