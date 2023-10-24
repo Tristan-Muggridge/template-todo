@@ -8,7 +8,7 @@ import { SupportedLanguages } from "../UILanguages";
 
 const SideNav = () => {
     
-    const [expanded, setExpanded] = useState(true);
+    const [expanded, setExpanded] = useState(false);
     const [page, setPage] = useState(window.location.href.split('/').pop());
     const { language, setLanguage } = useLanguage();
 
