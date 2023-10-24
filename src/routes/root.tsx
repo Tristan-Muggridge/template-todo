@@ -29,7 +29,7 @@ const SideNav = () => {
     const [page, setPage] = useState(window.location.href.split('/').pop());
 
     const onNavClick = () => {
-        setExpanded(false);
+        setExpanded(!expanded);
         setPage(_page => window.location.href.split('/').pop());
     }
 
