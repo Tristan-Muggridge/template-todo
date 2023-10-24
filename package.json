@@ -1,6 +1,5 @@
 {
   "name": "template-todo",
-  "homepage": "https://todo.muggridge.dev/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
