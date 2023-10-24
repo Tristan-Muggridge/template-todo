@@ -13,17 +13,14 @@ const App: React.FC = () => {
     const {language} = useLanguage();
 
     return (
-        <div className='flex flex-col w-full p-4 gap-4'>
+        <div className='flex flex-col gap-4 p-4 w-full'>
             <h1 className="text-3xl">{language.templates}</h1>
 
             <Card className='flex justify-center flex-col items-center' onClick={() => setShowNewTemplateForm(!showNewTemplateForm)}>
                 <h2>{language.createNewTemplate}</h2>
             </Card>
             
-            <div className={`
-                transition-all duration-200 overflow-hidden
-                ${showNewTemplateForm ? 'max-h-[20vh]' : 'max-h-[0px]'}
-            `}>
+            { showNewTemplateForm && (
                 <Form.TemplateForm 
                     formTemplate={{
                         name: {
@@ -48,7 +45,7 @@ const App: React.FC = () => {
                         setShowNewTemplateForm(false);
                     }} 
                 />
-            </div>
+            )}
                 
             <div className="flex flex-col gap-4">
                 {
