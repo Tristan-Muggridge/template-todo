@@ -46,7 +46,7 @@ const SideNav = () => {
             flex flex-col gap-4 w-full h-full transition-all duration-200
         `}>
             <div className={`
-                flex flex-col gap-4 w-12 fixed top-12 bottom-0 left-0 bg-neutral-900 transition-all duration-200
+                flex flex-col gap-4 w-12 fixed md:static md:h-full top-12 bottom-0 left-0 bg-neutral-900 transition-all duration-200
                 ${expanded ? '-left-0' : '-left-12'}
                 justify-between items-center py-4 text-2xl
                 
