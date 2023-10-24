@@ -30,13 +30,13 @@ const SideNav = () => {
 
     const onNavClick = () => {
         setExpanded(false);
-        setPage(window.location.href.split('/').pop());
+        setPage(_page => window.location.href.split('/').pop());
     }
 
     const { language } = useLanguage();
 
     return (
-    <nav className={`flex flex-col w-12`} onClick={() => setExpanded(!expanded)}>
+    <nav className={`flex flex-col w-12`} onClick={onNavClick}>
         <span className="bg-neutral-900 p-4 text-2xl flex items-center justify-center">    
             <BsLayoutSidebar /> 
         </span>
@@ -48,7 +48,6 @@ const SideNav = () => {
                 flex flex-col gap-4 w-12 fixed md:static md:h-full top-12 bottom-0 left-0 bg-neutral-900 transition-all duration-200
                 ${expanded ? '-left-0' : '-left-12'}
                 justify-between items-center py-4 text-2xl
-                
                 z-10
             `}>
                     <div/>
@@ -71,7 +70,6 @@ const SideNav = () => {
                                         flex w-full items-center justify-center grow hover:text-neutral-700 transition-all duration-200
                                         ${page === to ? 'text-neutral-700' : ''}
                                     `}
-                                    onClick={onNavClick}
                                 > 
                                     {icon} 
                                 </Link>
@@ -91,7 +89,7 @@ export default function Root() {
     return (
         <main className="bg-neutral-800 supports-[height:100cqh]:min-h-[100cqh] supports-[height:100svh]:min-h-[100svh] text-neutral-100 flex flex-col md:flex-row">
             <SideNav />
-            <div className="flex justify-center w-full h-full mt-16 md:ml-24">
+            <div className="flex justify-center w-full h-full">
                 <Outlet />
             </div>
         </main>
