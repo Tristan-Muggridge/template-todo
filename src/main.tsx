@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         ]
     },
 ], {
-    basename: "/template-todo"
+    basename: "/"
 });
 
 const rootElement = document.getElementById("root");
