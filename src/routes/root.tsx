@@ -33,7 +33,7 @@ const SideNav = () => {
                         {
                             [
                                 {
-                                    to: language._id === SupportedLanguages.English ? 'tasks' : 'タスク',
+                                    to: language._id === SupportedLanguages.English ? '/' : '/',
                                     icon: <BsListCheck />
                                 },
                                 {
