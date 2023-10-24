@@ -27,16 +27,17 @@ const TemplateView: React.FC<TemplateProps> = ({
 		<Card className={`${template.isEnabled ? '' : 'opacity-50'} flex flex-col gap-4`}>
 			<div>
 				<div className="flex justify-between">
-					<h2 className="text-2xl text-neutral-50 font-bold">{template?.name}</h2>
+					<h2 className="text-2xl text-neutral-50 font-bold shrink">{template?.name}</h2>
 					
-					{/* isEnabled indicator */}
-					<div className='flex gap-4'>
+					<div className='flex gap-2 items-center md:flex-row'>
+						<button onClick={() => onDeleteTemplate()} className="text-neutral-500 hover:text-rose-500"> <FiTrash /> </button>
+
+						{/* isEnabled indicator */}
 						<button 
 							onClick={() => onToggleEnabled()}
-							className={`px-2 py-1 rounded-md text-sm font-bold ${template?.isEnabled ? 'bg-neutral-700 text-emerald-500' : 'bg-neutral-700 text-rose-500'}`}>
+							className={`rounded-md text-sm w-20 h-8 font-bold ${template?.isEnabled ? 'bg-neutral-700 text-emerald-500' : 'bg-neutral-700 text-rose-500'}`}>
 							{template?.isEnabled ? language.enabled : language.disabled}
 						</button>
-						<button onClick={() => onDeleteTemplate()} className="text-neutral-500 hover:text-rose-500"> <FiTrash /> </button>
 					</div>				
 				</div>
 				<p>{template?.description}</p>

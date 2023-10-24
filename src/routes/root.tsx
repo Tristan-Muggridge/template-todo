@@ -12,12 +12,17 @@ const SideNav = () => {
     const [page, setPage] = useState(window.location.href.split('/').pop());
     const { language, setLanguage } = useLanguage();
 
+    const onNavClick = () => {
+        setExpanded(false);
+        setPage(window.location.href.split('/').pop());
+    }
+
     useEffect(() => {
         document.title = language._id === SupportedLanguages.English ? 'Template Todo' : 'マイ・タスク';
     }, [language])
 
     return (
-        <nav className="w-28">
+        <nav className="w-28 supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] fixed z-10 md:static">
             <div className={`
                 h-full flex flex-col justify-between items-center w-24 transition-all duration-200 relative
             `}>
@@ -26,24 +31,24 @@ const SideNav = () => {
 
                 <div className={`
                     bg-neutral-900 p-4 shadow-lg shadow-black transition-all duration-200 grow justify-between flex flex-col w-full absolute top-10 bottom-0
-                    
+                    ${expanded ? 'left-0' : '-left-24'}
                 `}>
                     <div/>
                     <div className="flex flex-col text-2xl items-center gap-24 w-full">
                         {
                             [
                                 {
-                                    to: language._id === SupportedLanguages.English ? '/' : '/',
+                                    to: '/',
                                     icon: <BsListCheck />
                                 },
                                 {
                                     to: language._id === SupportedLanguages.English ? 'templates' : 'テンプレート',
                                     icon: <BsClipboardFill />
                                 },
-                                {
-                                    to: language._id === SupportedLanguages.English ? 'configuration' : '設定',
-                                    icon: <BsGearFill />
-                                }
+                                // {
+                                //     to: language._id === SupportedLanguages.English ? 'configuration' : '設定',
+                                //     icon: <BsGearFill />
+                                // }
                             ].map( ({to, icon}) => (
                                 <Link 
                                     key={to} 
@@ -52,7 +57,7 @@ const SideNav = () => {
                                         flex w-full items-center justify-center grow hover:text-neutral-700 transition-all duration-200
                                         ${page === to ? 'text-neutral-700' : ''}
                                     `}
-                                    onClick={() => setPage(to)}
+                                    onClick={onNavClick}
                                 > 
                                     {icon} 
                                 </Link>
@@ -61,7 +66,6 @@ const SideNav = () => {
                     </div>
 
                     <button className="text-2xl flex justify-center" onClick={() => {
-                        // This is actually awful, TODO: Fix this
                         language._id === SupportedLanguages.English ? setLanguage(SupportedLanguages.Japanese) : setLanguage(SupportedLanguages.English);
                     }}> <IoLanguageSharp /> </button>
                 </div>
@@ -72,9 +76,9 @@ const SideNav = () => {
 
 export default function Root() {  
     return (
-        <main className="bg-neutral-800 supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] text-neutral-100 flex">
+        <main className="bg-neutral-800 supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] text-neutral-100 flex flex-col md:flex-row">
             <SideNav />
-            <div className="flex justify-center w-full h-full overflow-y-scroll">
+            <div className="flex justify-center w-full h-full overflow-y-scroll mt-16">
                 <Outlet />
             </div>
         </main>
