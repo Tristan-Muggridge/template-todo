@@ -34,12 +34,16 @@ export default () => {
             </button>
 
             {/* Progress Bar */}
-            <div className="flex w-full flex-col gap-0.5">
-                <span className="self-end text-xs text-neutral-400"> {completeTasks.length} / {taskList.tasks.length} </span>
-                <div className="flex-grow h-2 bg-neutral-200 rounded-lg overflow-hidden">
-                    <div className={`h-full bg-emerald-500 transition-colors duration-200 delay-200`} style={{width: `${completeTasks.length/taskList.tasks.length*100}%`}}></div>
-                </div>
-            </div>
+            {
+                taskList.tasks.length > 0 && (
+                    <div className="flex w-full flex-col gap-0.5">
+                        <span className="self-end text-xs text-neutral-400"> {completeTasks.length} / {taskList.tasks.length} </span>
+                        <div className="flex-grow h-2 bg-neutral-200 rounded-lg overflow-hidden">
+                            <div className={`h-full bg-emerald-500 transition-colors duration-200 delay-200`} style={{width: `${completeTasks.length/taskList.tasks.length*100}%`}}></div>
+                        </div>
+                    </div>
+                )
+            }
 
             <UnorderedTasks 
                 label={language.toDo}

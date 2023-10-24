@@ -22,7 +22,7 @@ const SideNav = () => {
     }, [language])
 
     return (
-        <nav className="w-28 supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] fixed z-10 md:static">
+        <nav className="w-28 supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] fixed z-10">
             <div className={`
                 h-full flex flex-col justify-between items-center w-24 transition-all duration-200 relative
             `}>
@@ -31,7 +31,7 @@ const SideNav = () => {
 
                 <div className={`
                     bg-neutral-900 p-4 shadow-lg shadow-black transition-all duration-200 grow justify-between flex flex-col w-full absolute top-10 bottom-0
-                    ${expanded ? 'left-0' : '-left-24'}
+                    ${expanded ? 'left-0' : '-left-24 md:-left-0'}
                 `}>
                     <div/>
                     <div className="flex flex-col text-2xl items-center gap-24 w-full">
@@ -45,10 +45,6 @@ const SideNav = () => {
                                     to: language._id === SupportedLanguages.English ? 'templates' : 'テンプレート',
                                     icon: <BsClipboardFill />
                                 },
-                                // {
-                                //     to: language._id === SupportedLanguages.English ? 'configuration' : '設定',
-                                //     icon: <BsGearFill />
-                                // }
                             ].map( ({to, icon}) => (
                                 <Link 
                                     key={to} 
@@ -76,9 +72,9 @@ const SideNav = () => {
 
 export default function Root() {  
     return (
-        <main className="bg-neutral-800 supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] text-neutral-100 flex flex-col md:flex-row">
+        <main className="bg-neutral-800 supports-[height:100cqh]:min-h-[100cqh] supports-[height:100svh]:min-h-[100svh] text-neutral-100 flex flex-col md:flex-row">
             <SideNav />
-            <div className="flex justify-center w-full h-full overflow-y-scroll mt-16">
+            <div className="flex justify-center w-full h-full mt-16 md:ml-24">
                 <Outlet />
             </div>
         </main>

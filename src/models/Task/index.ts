@@ -52,9 +52,6 @@ class Task extends Record implements ITask {
     // Used in state updates, so need to return a new object of self.
     markComplete() {
         this._completed = true;
-        console.log('Task marked complete',
-        this);
-        console.log();
         return this;
     }
 
