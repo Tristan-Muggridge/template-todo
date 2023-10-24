@@ -31,6 +31,7 @@ const SideNav = () => {
     const onNavClick = () => {
         setExpanded(!expanded);
         setPage(_page => window.location.href.split('/').pop());
+        console.log(!expanded ? 'expanded' : 'collapsed')
     }
 
     const { language } = useLanguage();
