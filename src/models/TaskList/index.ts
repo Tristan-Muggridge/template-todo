@@ -11,7 +11,7 @@ export type TaskList = {
     
     toJSON: () => ITask[];
     loadTasks: (tasks: Task[]) => void;
-    clearCompleted: () => void;
+    removeTasks: (tasks: Task[]) => void;
 }
 
 export default () => {
@@ -35,6 +35,6 @@ export default () => {
         updateTask: (task: Task) => setTasks([...tasks.map(t => t.id === task.id ? task : t)]),
         toJSON: () => tasks.map(task => task.toJSON()),
         loadTasks: (tasks: Task[]) => setTasks([...tasks]),
-        clearCompleted: () => setTasks([...tasks.filter(task => !task.completed)]),
+        removeTasks: (deleteTasks: Task[]) => setTasks([...tasks.filter(t => !deleteTasks.some(dt => dt.id === t.id))])
     };
 };

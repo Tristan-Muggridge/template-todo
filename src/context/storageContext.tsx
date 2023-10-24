@@ -18,7 +18,7 @@ const storageContext = createContext<StorageContextType>({
         
         toJSON: () => {throw new Error('Not implemented')},
         loadTasks: () => {throw new Error('Not implemented')},
-        clearCompleted: () => {throw new Error('Not implemented')},
+        removeTasks: () => {throw new Error('Not implemented')},
     },
     templateList: {
         templates: [],

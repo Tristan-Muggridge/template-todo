@@ -23,7 +23,7 @@ export default ({tasks, taskList, label, showClearAll }:UnorderedTasksProps) => 
                         text-xs hover:text-rose-500 transition-all duration-200
                         ${showClearAll && tasks.length > 0 ? 'opacity-1000' : 'opacity-0'}
                     `}
-                    onClick={() => taskList.clearCompleted()}
+                    onClick={() => taskList.removeTasks(tasks)}
                 >
             
                 ({language.clearAll})
