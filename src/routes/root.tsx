@@ -36,9 +36,8 @@ const SideNav = () => {
     const { language } = useLanguage();
 
     return (
-    <nav className={`flex flex-col w-12`}>
-        <span className="bg-neutral-900 p-4 text-2xl flex items-center justify-center"
-         onClick={() => setExpanded(!expanded)}>    
+    <nav className={`flex flex-col w-12`} onClick={() => setExpanded(!expanded)}>
+        <span className="bg-neutral-900 p-4 text-2xl flex items-center justify-center">    
             <BsLayoutSidebar /> 
         </span>
         
