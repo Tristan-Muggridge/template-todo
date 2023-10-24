@@ -19,7 +19,6 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
-        errorElement: <div>Not Found</div>,
         children: [
             {
                 path: "/tasks",
