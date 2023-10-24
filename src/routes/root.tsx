@@ -72,9 +72,9 @@ const SideNav = () => {
 
 export default function Root() {  
     return (
-        <main className="bg-neutral-800 min-h-[100vh] text-neutral-100 flex">
+        <main className="bg-neutral-800 supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] text-neutral-100 flex">
             <SideNav />
-            <div className="flex justify-center w-full">
+            <div className="flex justify-center w-full h-full">
                 <Outlet />
             </div>
         </main>
